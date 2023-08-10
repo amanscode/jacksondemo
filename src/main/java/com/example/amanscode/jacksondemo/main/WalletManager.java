@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WalletManager {
-
     public static void main(String[] args) {
         List<User> users = createUsers();
         List<Transaction> transactions = createTransactions();
