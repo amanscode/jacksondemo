@@ -1,0 +1,75 @@
+package com.example.amanscode.jacksondemo.main.test;
+
+import com.example.amanscode.jacksondemo.main.WalletManager;
+import com.example.amanscode.jacksondemo.pojo.Transaction;
+import com.example.amanscode.jacksondemo.pojo.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
+public class WalletManagerTest {
+
+    @Test
+    public void testWriteJson() throws IOException {
+        System.out.println("Testing writeJson...");
+        String testOutputFileName = "/Users/agupta1/Documents/aman docs/Git/jacksondemo/src/test/resources/testOutputFileForWallets.json";
+        List<Transaction> inputTransactions = createTransactions();
+        String jsonData = WalletManager.writeJson(testOutputFileName, createUsers(), inputTransactions);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Transaction> outputTransactions = objectMapper.readValue(jsonData, List.class);
+
+        assertEquals(inputTransactions.size(), outputTransactions.size());
+    }
+
+    @Test
+    public void testReadJson()
+    {
+        System.out.println("Testing readJson...");
+        String testInputFileName = "/Users/agupta1/Documents/aman docs/Git/jacksondemo/src/test/resources/testInputFileForWallets.json";
+        List<Transaction> transactions = WalletManager.readJson(testInputFileName);
+        assert transactions != null;
+        assertEquals(10, transactions.size());
+    }
+
+    private static List<User> createUsers(){
+        List<User> users = new ArrayList<User>();
+        User u1 = new User("1", "Ross", 3000.0);
+        User u2 = new User("2", "Joey", 1000.0);
+        User u3 = new User("3", "Chandler", 2000.0);
+        users.add(u1);
+        users.add(u2);
+        users.add(u3);
+        return users;
+    }
+
+    private static List<Transaction> createTransactions(){
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        Transaction t1 = new Transaction("10", "1", 120.2, "credit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t2 = new Transaction("11", "3", 621.79, "debit", "99.0.1.1", "2023-08-01 11:53:23");
+        Transaction t3 = new Transaction("12", "3", 700.67, "credit", "99.0.1.1", "2023-08-03 09:12:23");
+        Transaction t4 = new Transaction("13", "1", 342.15, "credit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t5 = new Transaction("14", "1", 467.73, "debit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t6 = new Transaction("15", "2", 20.0, "debit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t7 = new Transaction("16", "3", 700.67, "credit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t8 = new Transaction("17", "2", 400.57, "debit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t9 = new Transaction("18", "1", 353.98, "credit", "99.0.1.1", "2023-08-16 08:12:23");
+        Transaction t10 = new Transaction("19", "2", 98.75, "debit", "99.0.1.1", "2023-08-16 08:12:23");
+        transactions.add(t1);
+        transactions.add(t2);
+        transactions.add(t3);
+        transactions.add(t4);
+        transactions.add(t5);
+        transactions.add(t6);
+        transactions.add(t7);
+        transactions.add(t8);
+        transactions.add(t9);
+        transactions.add(t10);
+        return transactions;
+    }
+
+}
